@@ -1,0 +1,3 @@
+# This directory is the build output destination for the React frontend.
+# During `docker compose up --build`, the React app is built into web/static/app/.
+# The directory itself is tracked (with .gitkeep) but the build output is in .gitignore.

@@ -1,0 +1,26 @@
+# Don't send unnecessary files to Docker build context
+.git
+.gitignore
+.idea
+.vscode
+
+# Local data
+data/
+
+# Build artifacts
+web/static/app/
+server
+server.exe
+wstest
+wstest.exe
+
+# Env
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

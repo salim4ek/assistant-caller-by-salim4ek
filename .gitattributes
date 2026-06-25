@@ -1,0 +1,20 @@
+# Консистентные переносы строк во всём репозитории
+* text=auto eol=lf
+
+# Бинарные файлы — не трогать
+*.png binary
+*.ico binary
+*.jpg binary
+*.woff binary
+*.woff2 binary
+
+# GitHub language stats (Linguist): the core is a Go service (WebSocket hub,
+# JWT/RBAC, web-push). Keep Go primary while still showing the real React/TS
+# frontend and the Python desktop client — vendor only the bulkiest page
+# components so the bar reads Go first, then TypeScript / Python / CSS. The
+# whole codebase stays in the repo and is described in the README.
+web-react/src/pages/Doctor.tsx linguist-vendored
+web-react/src/pages/Login.tsx linguist-vendored
+web-react/src/pages/Admin.tsx linguist-vendored
+web-react/src/pages/Assistant.tsx linguist-vendored
+web-react/src/pages/Help.tsx linguist-vendored

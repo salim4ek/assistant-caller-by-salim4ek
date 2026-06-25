@@ -1,0 +1,81 @@
+# ---- Build artifacts ----
+/server
+/server.exe
+/wstest
+/wstest.exe
+*.exe
+*.test
+*.out
+*.prof
+
+# ---- Frontend build (built inside Docker) ----
+web/static/app/
+web-react/dist/
+web-react/node_modules/
+web-react/.vite/
+
+# ---- Local data ----
+/data/*.db
+/data/*.db-journal
+/data/*.db-wal
+/data/*.db-shm
+
+# ---- Environment / secrets ----
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+# Защитный exclude: деплой-скрипт с кредами не должен попасть в репозиторий
+scripts/ssh_run.py
+*secret*
+*credentials*
+
+# ---- Logs ----
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+
+# ---- IDE ----
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ---- OS / temp ----
+.tmp/
+.cache/
+
+# ---- Coverage / test artifacts ----
+coverage/
+*.coverprofile
+
+# ---- Node (любой уровень) ----
+node_modules/
+
+# ---- Python / PyInstaller (десктоп-клиент) ----
+__pycache__/
+*.pyc
+build/
+dist/
+dist*/
+build*/
+*.manifest
+
+# ---- Установщик десктопа и бэкапы ----
+downloads/
+_src_backup/
+*.bak
+*.bak-*
+*.tgz
+NN_Vyzov.zip
+
+# TS incremental build info
+*.tsbuildinfo

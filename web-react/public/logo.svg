@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <text x="32" y="42" text-anchor="middle" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+        font-weight="900" font-size="34" letter-spacing="-2" fill="url(#g)">NN</text>
+  <text x="50" y="20" text-anchor="middle" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif"
+        font-weight="500" font-size="16" fill="#34d399">+</text>
+</svg>

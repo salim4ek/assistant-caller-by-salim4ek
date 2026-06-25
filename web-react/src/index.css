@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 180 33% 99%;
+    --foreground: 210 28% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 28% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 28% 17%;
+    --primary: 175 77% 26%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 174 35% 94%;
+    --secondary-foreground: 175 70% 20%;
+    --muted: 200 24% 96%;
+    --muted-foreground: 208 12% 44%;
+    --accent: 174 40% 92%;
+    --accent-foreground: 175 70% 20%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 200 20% 89%;
+    --input: 200 22% 95%;
+    --ring: 175 77% 30%;
+    --radius: 0.85rem;
+  }
+
+  * { @apply border-border; }
+  html, body, #root { height: 100%; }
+  /* На телефоне контент не должен «уезжать» вбок */
+  html, body { overflow-x: hidden; max-width: 100%; }
+  /* Не даём текстовым полям тянуться за край (ручка ресайза «уплывала») */
+  textarea { resize: none; max-width: 100%; }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Manrope', 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, 'PT Sans', sans-serif;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/80 backdrop-blur-xl border border-slate-200;
+  }
+
+  .gradient-text {
+    @apply text-teal-700;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  .bg-orbs::before {
+    content: '';
+    position: fixed;
+    inset: -10%;
+    background:
+      radial-gradient(50% 50% at 18% 22%, rgba(13,148,136,0.06) 0%, transparent 65%),
+      radial-gradient(45% 45% at 82% 78%, rgba(13,148,136,0.05) 0%, transparent 65%),
+      radial-gradient(38% 38% at 62% 18%, rgba(13,148,136,0.04) 0%, transparent 65%);
+    z-index: -2;
+    animation: bg-drift 22s ease-in-out infinite alternate;
+  }
+  .bg-orbs::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(15,23,42,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,23,42,0.03) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, #000 30%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, #000 30%, transparent 100%);
+    z-index: -1;
+    pointer-events: none;
+    animation: grid-pan 40s linear infinite;
+  }
+  @keyframes grid-pan {
+    0%   { background-position: 0 0; }
+    100% { background-position: 56px 56px; }
+  }
+
+  /* Floating medical glyphs */
+  .bg-glyphs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+  .bg-glyphs svg {
+    position: absolute;
+    opacity: 0.05;
+    color: #0d9488;
+    animation: float 18s ease-in-out infinite;
+  }
+  .bg-glyphs svg:nth-child(2) { animation-delay: -6s; animation-duration: 22s; }
+  .bg-glyphs svg:nth-child(3) { animation-delay: -12s; animation-duration: 26s; }
+  @keyframes float {
+    0%, 100% { transform: translate(0,0) rotate(0deg); }
+    25%      { transform: translate(40px, -30px) rotate(10deg); }
+    50%      { transform: translate(-20px, 40px) rotate(-8deg); }
+    75%      { transform: translate(-40px, -20px) rotate(6deg); }
+  }
+
+  /* Бегущая линия сердцебиения (ЭКГ) на фоне */
+  .bg-ecg {
+    position: fixed;
+    left: 0; right: 0;
+    top: 52%;
+    height: 150px;
+    transform: translateY(-50%);
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+  .bg-ecg.ecg-on { opacity: 0.10; }
+  .bg-ecg .ecg-track {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    animation: ecg-run 8s linear infinite;
+  }
+  .bg-ecg svg {
+    flex: 0 0 50%;
+    width: 50%;
+    height: 100%;
+    fill: none;
+    stroke: #0d9488;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  @keyframes ecg-run {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* «Сердцебиение» логотипа NN в шапке */
+  .nn-pulse {
+    display: inline-flex;
+    border-radius: 9999px;
+    animation: nn-beat 1.6s ease-in-out infinite;
+    will-change: transform, filter;
+  }
+  @keyframes nn-beat {
+    0%, 100% { filter: drop-shadow(0 0 0 rgba(52,211,153,0));    transform: scale(1); }
+    12%      { filter: drop-shadow(0 0 11px rgba(52,211,153,0.6)); transform: scale(1.07); }
+    24%      { filter: drop-shadow(0 0 2px rgba(52,211,153,0.2));  transform: scale(1); }
+    36%      { filter: drop-shadow(0 0 7px rgba(52,211,153,0.4));  transform: scale(1.035); }
+    50%      { filter: drop-shadow(0 0 0 rgba(52,211,153,0));      transform: scale(1); }
+  }
+
+  /* «Звонок»: логотип на главном периодически вздрагивает и успокаивается (не часто) */
+  .nn-ring {
+    display: inline-flex;
+    transform-origin: 50% 50%;
+    animation: nn-ring 10s linear infinite;
+    will-change: transform;
+  }
+  /* 0–20% (≈2с) — жёсткая горизонтальная вибрация влево-вправо, затем 20–100% (≈8с) покой */
+  @keyframes nn-ring {
+    0%  { transform: translateX(0) }
+    1%  { transform: translateX(-9px) }   2%  { transform: translateX(9px) }
+    3%  { transform: translateX(-9px) }   4%  { transform: translateX(9px) }
+    5%  { transform: translateX(-8px) }   6%  { transform: translateX(8px) }
+    7%  { transform: translateX(-8px) }   8%  { transform: translateX(8px) }
+    9%  { transform: translateX(-7px) }  10%  { transform: translateX(7px) }
+    11% { transform: translateX(-7px) }  12%  { transform: translateX(7px) }
+    13% { transform: translateX(-6px) }  14%  { transform: translateX(6px) }
+    15% { transform: translateX(-5px) }  16%  { transform: translateX(5px) }
+    17% { transform: translateX(-4px) }  18%  { transform: translateX(3px) }
+    19% { transform: translateX(-2px) }  20%  { transform: translateX(0) }
+    100% { transform: translateX(0) }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bg-ecg .ecg-track,
+    .nn-pulse,
+    .nn-ring { animation: none; }
+  }
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--accent)); }
